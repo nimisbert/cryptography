@@ -13,4 +13,5 @@ void D_vigenere( const uint8_t C[VIGENERE_Nb], uint8_t P[VIGENERE_Nb], uint8_t K
 
 uint8_t vigenere_subBytes( uint8_t p, uint8_t k);
 uint8_t vigenere_invSubBytes( uint8_t p, uint8_t k);
+
 #endif

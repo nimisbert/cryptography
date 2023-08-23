@@ -37,3 +37,11 @@ Notations are based on Michel Dubois' [thesis](https://hal.science/tel-01799562v
 
 Multiplication and Exponent with AES_gf256Mul (Russian Peasant Algorithm) and AES_gf256Pow are quite meh... 
 For $GF(2^m)$ multiplication is $o(m)$ and exponent is $o(m^2)$. An LUT (log, antilog) based implementation should be done.
+
+Clean up the implementation. 
+
+Add documentation.
+
+Add SHA.
+
+Add build for basic binaries using files as inputs and outputs.
