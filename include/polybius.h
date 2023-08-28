@@ -3,11 +3,8 @@
 
 #include <stdint.h>
 
-void E_polybius( const uint8_t *P, uint8_t *C, int l, uint8_t K);
-void D_polybius( const uint8_t *C, uint8_t *P, int l, uint8_t K);
+void polybius_encrypt( const uint8_t *input, uint8_t *digest, uint32_t textSize, uint8_t key);
+void polybius_decrypt( const uint8_t *digest, uint8_t *output, uint32_t textSize, uint8_t key);
 
-
-int polybius_subBytes( int p, int k);
-int polybius_invSubBytes( int c, int k);
 
 #endif

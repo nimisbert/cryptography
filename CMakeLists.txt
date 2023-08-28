@@ -12,7 +12,7 @@ file( GLOB_RECURSE cryptography_C_EXAMPLE examples/*.c )
 add_library(
     cryptographylib SHARED
     src/scytale.c
-#    src/polybius.c
+    src/polybius.c
 #    src/aes.c
 #    src/vigenere.c
 )
@@ -26,6 +26,10 @@ add_executable( scytale examples/main_scytale.c )
 target_link_libraries( scytale cryptographylib )
 add_dependencies( scytale cryptographylib )
 
+# Test Polybius 
+add_executable( test_polybius examples/test_polybius.c)
+target_link_libraries( test_polybius cryptographylib)
+add_dependencies( test_polybius cryptographylib)
 
 
 
@@ -33,9 +37,6 @@ add_dependencies( scytale cryptographylib )
 
 
 
-#add_executable( caesar_main examples/caesar_main.c)
-#target_link_libraries( caesar_main ccrypt)
-#add_dependencies( caesar_main ccrypt)
 
 #add_executable( aes_nist_appendixA examples/aes_nist_appendixA.c)
 #target_link_libraries( aes_nist_appendixA ccrypt)

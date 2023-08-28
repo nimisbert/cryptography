@@ -2,18 +2,6 @@
 
 Exploration of the topic of cryptography in C.
 
-## Notations 
-
-Notations are based on Michel Dubois' [thesis](https://hal.science/tel-01799562v1).
-
-- S = { P, C, K, E, D } a cryptography system
-- P = the Set of all cleartext
-- C = the Set of all ciphertext
-- K = the Set of all keys
-- E = the Set of all cipher functions 
-- D = the Set of all decipher functions 
-- A = alphabet
-
 ## Sources 
 
 * [Michel Dubois (2017)](https://hal.science/tel-01799562v1)
@@ -26,9 +14,8 @@ Notations are based on Michel Dubois' [thesis](https://hal.science/tel-01799562v
 
 | Algorithm        | Date   | Done   | File                                     |
 |:-----------------|-------:|:------:|:----------------------------------------:|
-| Scytale          | - 404  | yes    | [scytale.c](./src/scytale.c)             |
+| Scytale          | - 404  | yes    | [scytale.c](./src/main_scytale.c)        |
 | Polybius Square  | - 150  | yes    | [polybius.c](./src/polybius.c)           |
-| Caesar           | - 128  | yes    | [caesar_main.c](./examples/caesar_main.c)|
 | Vigenère         |  1586  | yes    | [vigenere.c](./src/vigenere.c)           |
 | RSA              |  1978  | no     ||
 | AES              |  2001  | yes    | [aes.c](./src/aes.c)                     |
@@ -44,4 +31,4 @@ Add documentation.
 
 Add SHA.
 
-Add build for basic binaries using files as inputs and outputs.
+Add build for basic binaries using files as inputs and outputs. (polyb, vigenere, aes256)
