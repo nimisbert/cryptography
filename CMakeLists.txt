@@ -13,6 +13,8 @@ add_library(
     cryptographylib SHARED
     src/scytale.c
     src/polybius.c
+    src/sha.c
+    src/sha-1.c
 #    src/aes.c
 #    src/vigenere.c
 )
@@ -30,6 +32,11 @@ add_dependencies( scytale cryptographylib )
 add_executable( test_polybius examples/test_polybius.c)
 target_link_libraries( test_polybius cryptographylib)
 add_dependencies( test_polybius cryptographylib)
+
+# Test SHA-1
+add_executable( test_sha_1 examples/test_sha_1.c )
+target_link_libraries( test_sha_1 cryptographylib )
+add_dependencies( test_sha_1 cryptographylib)
 
 
 
