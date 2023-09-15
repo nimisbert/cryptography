@@ -1,7 +1,14 @@
+/**
+ * @file scy_main.c
+ * @brief Scytale encryption for files.
+ * @author Nicolas Misbert
+ * @version 0.1.0
+ * @date 15/09/2023
+ */
 #include <stdio.h>  // FILE
 #include <stdlib.h> // malloc, free
 #include <string.h> // memset
-#include "scytale.h"
+#include "ciphers.h"
 
 int main( int argc, char *argv[] ) 
 {
@@ -14,6 +21,7 @@ int main( int argc, char *argv[] )
 
     if ( argc != 5 ) {
         printf("Usage: scytale e/d infile outfile key\n\te = encrypt\td = decrypt\n");
+        return 1;
     }
     s = argv[1];
     if ( s[1] == 0 && (*s == 'd' || *s == 'D' || *s == 'e' || *s == 'E') ) {
@@ -53,9 +61,9 @@ int main( int argc, char *argv[] )
     }
 
     if (enc) {
-        scytale_encrypt( (const uint8_t*)inbuf, (uint8_t *)outbuf, fileSize, key);
+        scytale_encrypt( (const char*)inbuf, (char *)outbuf, fileSize, key);
     } else {
-        scytale_decrypt( (const uint8_t*)inbuf, (uint8_t *)outbuf, fileSize, key);
+        scytale_decrypt( (const char*)inbuf, (char *)outbuf, fileSize, key);
     }
 
     if( fwrite( outbuf, sizeof(char), fileSize*sizeof(uint8_t), outfile) < 0 ) {

@@ -10,33 +10,37 @@ file( GLOB_RECURSE cryptography_C_SOURCES src/*.c )
 file( GLOB_RECURSE cryptography_C_EXAMPLE examples/*.c )
 
 add_library(
-    cryptographylib SHARED
+    cryptography SHARED
     src/scytale.c
-    src/polybius.c
-    src/sha.c
-    src/sha-1.c
+#    src/polybius.c
+#    src/sha.c
+#    src/sha-1.c
 #    src/aes.c
 #    src/vigenere.c
 )
 
-# Test Scytale 
-add_executable( test_scytale examples/test_scytale.c )
-target_link_libraries( test_scytale cryptographylib )
-add_dependencies( test_scytale cryptographylib )
-# Main Scytale 
-add_executable( scytale examples/main_scytale.c )
-target_link_libraries( scytale cryptographylib )
-add_dependencies( scytale cryptographylib )
+# unit-test
+add_executable( scy_test examples/scy_test.c )
+target_link_libraries( scy_test cryptography )
+add_dependencies( scy_test cryptography )
+
+
+
+
+# mains 
+add_executable( scytale examples/scy_main.c )
+target_link_libraries( scytale cryptography )
+add_dependencies( scytale cryptography )
 
 # Test Polybius 
-add_executable( test_polybius examples/test_polybius.c)
-target_link_libraries( test_polybius cryptographylib)
-add_dependencies( test_polybius cryptographylib)
+#add_executable( test_polybius examples/test_polybius.c)
+#target_link_libraries( test_polybius cryptographylib)
+#add_dependencies( test_polybius cryptographylib)
 
 # Test SHA-1
-add_executable( test_sha_1 examples/test_sha_1.c )
-target_link_libraries( test_sha_1 cryptographylib )
-add_dependencies( test_sha_1 cryptographylib)
+#add_executable( test_sha_1 examples/test_sha_1.c )
+#target_link_libraries( test_sha_1 cryptographylib )
+#add_dependencies( test_sha_1 cryptographylib)
 
 
 

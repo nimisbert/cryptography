@@ -3,40 +3,56 @@
  * @brief A simple transposition cipher.
  * @author Nicolas Misbert
  * @version 0.1.0
- * @date 23/08/2023
+ * @date 15/09/2023
  */
-#include "scytale.h"
+#include "ciphers.h"
 
 /** 
- * @brief Perform the scytale encryption.
- * @param[in] input[textSize]   The clear text to encrypt.
- * @param[out] digest[textSize] The resulting coded text.
- * @param[in] textSize          Size of the input and digest arrays.
- * @param[in] key               The cipher key for the encryption.
+ * @brief Perform the scytale encryption. o(n) where n is the text_length.
+ * @param[in] clear_text  The clear text to encrypt.
+ * @param[out] cipher_text The resulting coded text.
+ * @param[in] text_length Length in bytes of the clear text. 
+ * @param[in] key The cipher key for the encryption.
+ * @return An error code.
  */
-void scytale_encrypt( const uint8_t *input, uint8_t *digest, uint32_t textSize, uint32_t key)
+int scytale_encrypt( const char *clear_text, char *cipher_text, int text_length, int key )
 {
-    for( uint32_t i = 0; i < key; i++) {
-        for( uint32_t j = 0; j < textSize/key; j++) {
-            digest[(textSize/key) * i + j] = input[key * j + i];
+    if( key == 0 ) {
+        return -1; // cannot divide by zero
+    }
+    for( int i = 0; i < key; i++) {
+        for( int j = 0; j < text_length/key; j++) {
+            cipher_text[(text_length/key) * i + j] = clear_text[key * j + i];
         }
     }
-    return;
+    if( text_length == key ) {
+        return 1; // clear text is identical to ciphered text
+    } else {
+        return 0; // ok
+    }
 }
 
 /** 
- * @brief Perform the scytale decryption.
- * @param[in] digest[textSize]  The coded text to decrypt.
- * @param[out] output[textSize] The resulting clear text.
- * @param[in] textSize          Size of the digest and output arrays.
- * @param[in] key               The cipher key for the encryption.
+ * @brief Perform the scytale decryption. o(n) where n is the text_length
+ * @param[in] cipher_text The coded text to decrypt.
+ * @param[out] clear_text The resulting clear text.
+ * @param[in] text_length Length in bytes of the cipher text.
+ * @param[in] key The cipher key for the encryption.
+ * @return An error code.
  */
-void scytale_decrypt( const uint8_t *digest, uint8_t *output, uint32_t textSize, uint32_t key)
+int scytale_decrypt( const char *cipher_text, char *clear_text, int text_length, int key )
 {
-    for( uint32_t i = 0; i < key; i++) {
-        for( uint32_t j = 0; j < textSize/key; j++) {
-            output[key * j + i] = digest[(textSize/key) * i + j];
+    if ( key == 0 ) {
+        return -1; // cannot divide by zero
+    }
+    for( int i = 0; i < key; i++) {
+        for( int j = 0; j < text_length/key; j++) {
+            clear_text[key * j + i] = cipher_text[(text_length/key) * i + j];
         }
     }
-    return;
+    if( text_length == key ) {
+        return 1; // clear text is identical to ciphered text
+    } else {
+        return 0; // ok
+    }
 }
