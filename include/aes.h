@@ -1,49 +1,32 @@
-#ifndef ADVANCED_ENCRYPTION_STANDARD_H
-#define ADVANCED_ENCRYPTION_STANDARD_H
+#ifndef AES_H
+#define AES_H
 
-#include <stdint.h>
+// === functions [src/ciphers/aes/aes.c] === //
+unsigned char aes_substitute( unsigned char a );
+void aes_sub_bytes( unsigned char s[4][8], int Nb );
+void aes_shift_rows( unsigned char s[4][8], int Nb );
+void aes_mix_columns( unsigned char s[4][8], int Nb );
+void aes_add_round_key( unsigned char s[4][8], unsigned long w[8], int Nb, int round );
+unsigned long aes_sub_word( unsigned long w );
+unsigned long aes_rot_word( unsigned long w );
+unsigned long aes_rcon( int i );
+void aes_key_expansion( const unsigned char key[4*8], unsigned long w[(8*(14+1)) + (8 % 4) ], int Nb, int Nk, int Nr );
+void aes_e( const unsigned char P[4*8], unsigned char C[4*8], const unsigned char K[4*8], int Nb, int Nk, int Nr );
+void aes_e_128( const unsigned char input[4*4], unsigned char output[4*4], const unsigned char K[4*4] );
+void aes_e_192( const unsigned char input[4*6], unsigned char output[4*6], const unsigned char K[4*6] );
+void aes_e_256( const unsigned char input[4*8], unsigned char output[4*8], const unsigned char K[4*8] );
 
-// Parameters 
-#define Nb 4
-#define Nk 8
-#define Nr 14
+unsigned char aes_inverse_substitute( unsigned char a );
+void aes_inv_sub_bytes( unsigned char s[4][8], int Nb );
+void aes_inv_mix_columns( unsigned char s[4][8], int Nb );
+void aes_inv_shift_rows( unsigned char s[4][8], int Nb );
+void aes_d( const unsigned char C[4*8], unsigned char P[4*8], const unsigned char K[4*8], int Nb, int Nk, int Nr );
+void aes_d_128( const unsigned char input[4*4], unsigned char output[4*4], const unsigned char K[4*4] );
+void aes_d_192( const unsigned char input[4*6], unsigned char output[4*6], const unsigned char K[4*6] );
+void aes_d_256( const unsigned char input[4*8], unsigned char output[4*8], const unsigned char K[4*8] );
 
-// Section 5.1 : Cipher
-void     E_AES( const uint8_t P[4*Nb], uint8_t C[4*Nb], const uint8_t K[4*Nk] );
-
-// Section 5.1.1 : SubBytes() Transformation 
-void     AES_subBytes      ( uint8_t s[4][Nb] );
-uint8_t  AES_substitute    ( uint8_t a );
-
-// Section 5.1.2 : ShiftRows() Transformation
-void     AES_shiftRows     ( uint8_t s[4][Nb] );
-
-// Section 5.1.3 : MixColumns Transformation
-void     AES_mixColumns    ( uint8_t s[4][Nb] );
-uint8_t  AES_gf256Add      ( const uint8_t a, const uint8_t b );
-uint8_t  AES_gf256Mul      ( const uint8_t a, const uint8_t b );
-uint8_t  AES_gf256Pow      ( const uint8_t a, const uint8_t p );
-
-// Section 5.1.4 : AddRoundKey() Transformation
-void     AES_addRoundKey   ( uint8_t s[4][Nb], uint32_t w[Nb], int round);
-
-// Section 5.2 : Key Expansion
-void     AES_keyExpansion ( const uint8_t key[4*Nk], uint32_t w[Nb*(Nr+1)] );
-uint32_t AES_subWord      ( const uint32_t w );
-uint32_t AES_rotWord      ( const uint32_t w );
-uint32_t AES_rcon         ( int i );
-
-// Section 5.3 : Inverse Cipher
-void     D_AES( const uint8_t C[4*Nb], uint8_t P[4*Nb], const uint8_t K[4*Nk]);
-
-// Section 5.3.1 : InvShiftRows() Transformation
-void     AES_invShiftRows ( uint8_t s[4][Nb] );
-
-// Section 5.3.2 : InvSubBytes() Transformation
-void     AES_invSubBytes       ( uint8_t s[4][Nb] );
-uint8_t  AES_inverseSubstitute ( uint8_t a );
-
-// Section 5.3.3 : InvMixColumns() Transformation
-void     AES_invMixColumns     ( uint8_t s[4][Nb] );
+// === Substitution Boxes [src/ciphers/aes/box.c] === //
+const unsigned char SBox[16][16];
+const unsigned char iSBox[16][16];
 
 #endif
